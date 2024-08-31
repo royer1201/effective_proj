@@ -1,0 +1,65 @@
+version: '2.2'
+
+services:
+  webz-001:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webz-001
+    networks:
+      - webnet
+    ports:
+      - "8081:80"
+    volumes:
+      - webz-logs:/var/log/apache2
+
+  webz-002:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webz-002
+    networks:
+      - webnet
+    ports:
+      - "8082:80"
+    volumes:
+      - webz-logs:/var/log/apache2
+
+  webz-003:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webz-003
+    networks:
+      - webnet
+    ports:
+      - "8083:80"
+    volumes:
+      - webz-logs:/var/log/apache2
+
+  webz-004:
+    image: jenkins/jenkins:lts
+    container_name: webz-004
+    networks:
+      - webnet
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins-logs:/var/log/jenkins
+        
+  haproxy:
+    build:
+      context: ./haproxy-config
+    container_name: haproxy
+    networks:
+      - webnet
+    ports:
+      - "80:80"
+          
+networks:
+  webnet:
+
+volumes:
+  webz-logs:
+  jenkins-logs:
+
