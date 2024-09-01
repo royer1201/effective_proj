@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLOATING_IP="your_floating_ip_here"
+FLOATING_IP="192.168.0.100"
 PORT="80"
 LOG_FILE="/var/log/jenkins/floating_ip_response.log"
 
